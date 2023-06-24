@@ -1,0 +1,27 @@
+{
+  "name": "api-solid-nodejs",
+  "version": "1.0.0",
+  "description": "The main focus of this project is to provide an in-depth understanding of SOLID principles, <br> Design Patterns, Docker for initializing the database, JWT (JSON Web Token) and Refresh Token authentication, <br> RBAC (Role-Based Access Control), and many other key concepts.  <br>",
+  "main": "index.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsup src --out-dir dist",
+    "start": "node dist/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.3.1",
+    "tsup": "^7.0.0",
+    "tsx": "^3.12.7",
+    "typescript": "^5.1.3"
+  },
+  "dependencies": {
+    "fastify": "^4.18.0"
+  }
+}
