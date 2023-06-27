@@ -10,7 +10,8 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsup src --out-dir dist",
     "start": "node dist/server.js",
-    "db": "npx prisma studio"
+    "db:view": "npx prisma studio",
+    "db:migrate -dev": "npx prisma migrate dev"
   },
   "keywords": [],
   "author": "",
