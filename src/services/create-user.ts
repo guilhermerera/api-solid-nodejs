@@ -1,5 +1,6 @@
 import { UsersRepository } from "@/repositories/users-repository";
 import { hash } from "bcryptjs";
+import { EmailAlreadyExistsError } from "./errors/email-already-exists-error";
 
 interface CreateUserDTO {
 	name: string;
@@ -13,9 +14,9 @@ export class CreateUser {
 		const userWithSameEmail = await this.usersRepository.findByEmail(email);
 
 		if (userWithSameEmail) {
-			throw new Error("Email already in use");
+			throw new EmailAlreadyExistsError()
 		}
-
+		
 		const password_hash = await hash(password, 6);
 
 		await this.usersRepository.create({
