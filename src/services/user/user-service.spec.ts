@@ -1,10 +1,11 @@
-import { expect, describe, it, beforeAll } from "vitest";
+import { expect, describe, it } from "vitest";
 import { UserService } from "./user-service";
 import { compare } from "bcryptjs";
 import { InMemoryUserRepository } from "@/repositories/users-repository-in-memory";
-import { EmailAlreadyExistsError } from "../error/error-service";
-
-beforeAll(async () => {});
+import {
+	EmailAlreadyExistsError,
+	UserEmailNotFound
+} from "../error/error-service";
 
 describe("User Service", () => {
 	it("should be able to register", async () => {
@@ -57,5 +58,37 @@ describe("User Service", () => {
 				password: "testpass"
 			});
 		}).rejects.toBeInstanceOf(EmailAlreadyExistsError);
+	});
+
+	it("should should be able to fetch user info with their email", async () => {
+		const usersRepository = new InMemoryUserRepository();
+		const _user = new UserService(usersRepository);
+
+		const email = "johndoe@example.com";
+
+		await _user.create({
+			name: "John Doe",
+			email,
+			password: "testpass"
+		});
+
+		const { user } = await _user.findByEmail(email);
+
+		expect(user.email).toBe(email);
+	});
+
+	it("should throw UserEmailNotFound error when fetching user info with a non existent email", async () => {
+		const usersRepository = new InMemoryUserRepository();
+		const _user = new UserService(usersRepository);
+
+		await _user.create({
+			name: "John Doe",
+			email: "johndoe@example.com",
+			password: "testpass"
+		});
+
+		expect(() =>
+			_user.findByEmail("email@dontexist.com")
+		).rejects.toBeInstanceOf(UserEmailNotFound);
 	});
 });
