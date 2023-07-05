@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod";
-import { UserService } from "@/services/user-service";
+import { UserService } from "@/services/user/user-service";
 import { UserRepository } from "@/repositories/user-repository";
 import { EmailAlreadyExistsError } from "@/services/error/error-service";
 
