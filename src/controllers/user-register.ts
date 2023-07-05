@@ -4,7 +4,7 @@ import { UserService } from "@/services/user-service";
 import { UserRepository } from "@/repositories/user-repository";
 import { EmailAlreadyExistsError } from "@/services/error/error-service";
 
-export async function RegisterController(
+export async function RegisterUserController(
 	request: FastifyRequest,
 	reply: FastifyReply
 ) {
