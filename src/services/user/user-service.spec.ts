@@ -4,7 +4,7 @@ import { compare } from "bcryptjs";
 import { InMemoryUserRepository } from "@/repositories/users-repository-in-memory";
 import {
 	EmailAlreadyExistsError,
-	UserEmailNotFound
+	EmailNotFoundError
 } from "../error/error-service";
 
 describe("User Service", () => {
@@ -77,7 +77,7 @@ describe("User Service", () => {
 		expect(user.email).toBe(email);
 	});
 
-	it("should throw UserEmailNotFound error when fetching user info with a non existent email", async () => {
+	it("should throw custom error when fetching user info with a non existant email", async () => {
 		const usersRepository = new InMemoryUserRepository();
 		const _user = new UserService(usersRepository);
 
@@ -89,6 +89,6 @@ describe("User Service", () => {
 
 		expect(() =>
 			_user.findByEmail("email@dontexist.com")
-		).rejects.toBeInstanceOf(UserEmailNotFound);
+		).rejects.toBeInstanceOf(EmailNotFoundError);
 	});
 });

@@ -4,8 +4,14 @@ export class EmailAlreadyExistsError extends Error {
     }
 }
 
-export class UserEmailNotFound extends Error { 
+export class EmailNotFoundError extends Error { 
     constructor() {
         super("No user found with the email provided");
+    }
+}
+
+export class InvalidCredentialsError extends Error { 
+    constructor() {
+        super("Invalid credentials");
     }
 }

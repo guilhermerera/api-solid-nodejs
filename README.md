@@ -8,6 +8,7 @@ RBAC (Role-Based Access Control), and many other key concepts.
 ## **Features and Concepts**
 
 - Implementation of SOLID principles to ensure a modular and maintainable codebase.
+- Implemetation of tests to ensure the application won't break upon codebase changes.
 - Utilization of Design Patterns to solve common software design challenges.
 - Setting up a Docker environment for easy database initialization and management.
 - Implementation of JWT and Refresh Token authentication for secure user authentication and authorization.
@@ -20,8 +21,8 @@ RBAC (Role-Based Access Control), and many other key concepts.
 
 ### **Functional Requirements**
 
-- [ ] It should be possible to register;
-- [ ] It should be possible to authenticate;
+- [x] It should be possible to register;
+- [x] It should be possible to authenticate;
 - [ ] It should be possible to retrieve the profile of a logged-in user;
 - [ ] It should be possible to retrieve the number of check-ins performed by the logged-in user;
 - [ ] It should be possible for the user to retrieve their check-in history;
@@ -34,7 +35,7 @@ RBAC (Role-Based Access Control), and many other key concepts.
 
 ### **Business Rules**
 
-- [ ] The user should not be able to register with a duplicate email;
+- [x] The user should not be able to register with a duplicate email;
 - [ ] The user cannot make 2 check-ins on the same day;
 - [ ] The user cannot check-in if they are not close (100m) to the gym;
 - [ ] The check-in can only be validated within 20 minutes after it is created;
@@ -44,7 +45,7 @@ RBAC (Role-Based Access Control), and many other key concepts.
 
 ### **Non-Functional Requirements**
 
-- [ ] The user's password needs to be encrypted;
-- [ ] The application data needs to be persisted in a PostgreSQL database;
+- [x] The user's password needs to be encrypted;
+- [x] The application data needs to be persisted in a PostgreSQL database;
 - [ ] All data lists need to be paginated with 20 items per page;
 - [ ] The user should be identified by a JSON Web Token (JWT).

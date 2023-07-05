@@ -19,7 +19,7 @@ export async function RegisterUserController(
 	try {
 		const userRepository = new UserRepository();
 		const userService = new UserService(userRepository);
-		await userService.createUser({
+		await userService.create({
 			name,
 			email,
 			password
