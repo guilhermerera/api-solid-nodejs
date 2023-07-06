@@ -1,14 +1,13 @@
 import { FastifyRequest, FastifyReply, RequestParamsDefault } from "fastify";
 import { z } from "zod";
-import { UserService } from "@/services/user/user-service";
-import { UserRepository } from "@/repositories/user-repository";
 import { EmailNotFoundError } from "@/services/error/error-service";
+import { makeUserService } from "@/factories/make-user-service";
 
 type Params = RequestParamsDefault & {
 	email: string;
 };
 
-export async function FindUserController(
+export async function FindUserByEmailController(
 	request: FastifyRequest<{ Params: Params }>,
 	reply: FastifyReply
 ) {
@@ -16,9 +15,7 @@ export async function FindUserController(
 
 	try {
 		const email = emailSchema.parse(request.params.email);
-
-		const userRepository = new UserRepository();
-		const userService = new UserService(userRepository);
+		const userService = makeUserService();
 		const user = await userService.findByEmail(email);
 
 		return reply.status(200).send(user);

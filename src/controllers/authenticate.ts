@@ -1,8 +1,7 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod";
-import { UserRepository } from "@/repositories/user-repository";
 import { InvalidCredentialsError } from "@/services/error/error-service";
-import { AuthenticateService } from "@/services/authenticate/authenticate-service";
+import { makeAuthenticateService } from "@/factories/make-authenticate-service";
 
 export async function AuthenticateController(
 	request: FastifyRequest,
@@ -16,8 +15,7 @@ export async function AuthenticateController(
 	const { email, password } = authenticateBodySchema.parse(request.body);
 
 	try {
-		const userRepository = new UserRepository();
-		const authService = new AuthenticateService(userRepository);
+		const authService = makeAuthenticateService();
 		await authService.authenticate({
 			email,
 			password

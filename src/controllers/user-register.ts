@@ -1,8 +1,7 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod";
-import { UserService } from "@/services/user/user-service";
-import { UserRepository } from "@/repositories/user-repository";
 import { EmailAlreadyExistsError } from "@/services/error/error-service";
+import { makeUserService } from "@/factories/make-user-service";
 
 export async function RegisterUserController(
 	request: FastifyRequest,
@@ -17,14 +16,13 @@ export async function RegisterUserController(
 	const { name, email, password } = registerBodySchema.parse(request.body);
 
 	try {
-		const userRepository = new UserRepository();
-		const userService = new UserService(userRepository);
-		await userService.create({
+		const userService = makeUserService();
+		const {user} = await userService.create({
 			name,
 			email,
 			password
 		});
-
+		return reply.status(201).send(user);
 	} catch (error) {
 		if (error instanceof EmailAlreadyExistsError) {
 			return reply.status(409).send({ message: error.message });
@@ -32,5 +30,5 @@ export async function RegisterUserController(
 		throw error;
 	}
 
-	return reply.status(201).send();
+	
 }

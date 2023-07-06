@@ -2,7 +2,8 @@ import { UserRepository } from "@/repositories/user-repository";
 import { hash } from "bcryptjs";
 import {
 	EmailAlreadyExistsError,
-	EmailNotFoundError
+	EmailNotFoundError,
+	ResourceNotFound
 } from "../error/error-service";
 import { User } from "@prisma/client";
 
@@ -46,6 +47,16 @@ export class UserService {
 
 		if (!user) {
 			throw new EmailNotFoundError();
+		}
+
+		return { user };
+	}
+
+	async findById(id: string) {
+		const user = await this.userRepository.findById(id);
+
+		if (!user) {
+			throw new ResourceNotFound();
 		}
 
 		return { user };
