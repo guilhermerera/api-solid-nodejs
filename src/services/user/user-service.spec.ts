@@ -7,12 +7,15 @@ import {
 	EmailNotFoundError
 } from "../error/error-service";
 
+let usersRepository: InMemoryUserRepository;
+let _user: UserService;
+
 describe("User Service", () => {
 	it("should be able to register", async () => {
-		const usersRepository = new InMemoryUserRepository();
-		const User = new UserService(usersRepository);
+		usersRepository = new InMemoryUserRepository();
+		_user = new UserService(usersRepository);
 
-		const { user } = await User.create({
+		const { user } = await _user.create({
 			name: "John Doe",
 			email: "johndone@example.com",
 			password: "testpass"
@@ -22,10 +25,10 @@ describe("User Service", () => {
 	});
 
 	it("should hash user password upon registration", async () => {
-		const usersRepository = new InMemoryUserRepository();
-		const User = new UserService(usersRepository);
+		usersRepository = new InMemoryUserRepository();
+		_user = new UserService(usersRepository);
 
-		const { user } = await User.create({
+		const { user } = await _user.create({
 			name: "John Doe",
 			email: "johndone@example.com",
 			password: "testpass"
@@ -40,19 +43,19 @@ describe("User Service", () => {
 	});
 
 	it("should not be able to register a new user with an email already in use", async () => {
-		const usersRepository = new InMemoryUserRepository();
-		const user = new UserService(usersRepository);
+		usersRepository = new InMemoryUserRepository();
+		_user = new UserService(usersRepository);
 
 		const email = "johndoe@example.com";
 
-		await user.create({
+		await _user.create({
 			name: "John Doe",
 			email,
 			password: "testpass"
 		});
 
 		expect(async () => {
-			await user.create({
+			await _user.create({
 				name: "John Doe",
 				email,
 				password: "testpass"
@@ -61,8 +64,8 @@ describe("User Service", () => {
 	});
 
 	it("should should be able to fetch user info with their email", async () => {
-		const usersRepository = new InMemoryUserRepository();
-		const _user = new UserService(usersRepository);
+		usersRepository = new InMemoryUserRepository();
+		_user = new UserService(usersRepository);
 
 		const email = "johndoe@example.com";
 
