@@ -17,7 +17,7 @@ export async function RegisterUserController(
 
 	try {
 		const userService = makeUserService();
-		const {user} = await userService.create({
+		const { user } = await userService.create({
 			name,
 			email,
 			password
@@ -29,6 +29,4 @@ export async function RegisterUserController(
 		}
 		throw error;
 	}
-
-	
 }

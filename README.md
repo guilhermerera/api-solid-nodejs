@@ -23,7 +23,7 @@ RBAC (Role-Based Access Control), and many other key concepts.
 
 - [x] It should be possible to register;
 - [x] It should be possible to authenticate;
-- [ ] It should be possible to retrieve the profile of a logged-in user;
+- [x] It should be possible to retrieve the profile of a logged-in user;
 - [ ] It should be possible to retrieve the number of check-ins performed by the logged-in user;
 - [ ] It should be possible for the user to retrieve their check-in history;
 - [ ] It should be possible for the user to search for nearby gyms;

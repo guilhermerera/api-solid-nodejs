@@ -1,7 +1,7 @@
 import { expect, describe, it, beforeEach } from "vitest";
 import { UserService } from "./user-service";
 import { compare } from "bcryptjs";
-import { InMemoryUserRepository } from "@/repositories/user-repository-in-memory";
+import { InMemoryUserRepository } from "@/repositories/in-memory/user-repository-in-memory";
 import {
 	EmailAlreadyExistsError,
 	EmailNotFoundError,
@@ -51,13 +51,13 @@ describe("User Service", () => {
 			password: "testpass"
 		});
 
-		expect(async () => {
-			await _user.create({
+		await expect(() =>
+			_user.create({
 				name: "Another John",
 				email,
 				password: "another-test-pass"
-			});
-		}).rejects.toBeInstanceOf(EmailAlreadyExistsError);
+			})
+		).rejects.toBeInstanceOf(EmailAlreadyExistsError);
 	});
 
 	it("should be able to fetch user info with their email", async () => {
@@ -81,7 +81,7 @@ describe("User Service", () => {
 	});
 
 	it("should not be able to fetch user info with a non existant email", async () => {
-		expect(() =>
+		await expect(() =>
 			_user.findByEmail("non-existent@email.com")
 		).rejects.toBeInstanceOf(EmailNotFoundError);
 	});
@@ -105,8 +105,8 @@ describe("User Service", () => {
 	});
 
 	it("should not be able to fetch user info with a non existant id", async () => {
-		expect(() => _user.findById("non-existent-id")).rejects.toBeInstanceOf(
-			ResourceNotFound
-		);
+		await expect(() =>
+			_user.findById("non-existent-id")
+		).rejects.toBeInstanceOf(ResourceNotFound);
 	});
 });

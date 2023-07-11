@@ -1,4 +1,4 @@
-import { InMemoryUserRepository } from "@/repositories/user-repository-in-memory";
+import { InMemoryUserRepository } from "@/repositories/in-memory/user-repository-in-memory";
 import { beforeEach, describe, expect, it } from "vitest";
 import { AuthenticateService } from "./authenticate-service";
 import { hash } from "bcryptjs";
@@ -35,7 +35,7 @@ describe("Authenticate Service", () => {
 		const email = "johndone@example.com";
 		const password = "testpass";
 
-		expect(() =>
+		await expect(() =>
 			_auth.authenticate({
 				email,
 				password
@@ -52,7 +52,7 @@ describe("Authenticate Service", () => {
 			password_hash: await hash("testpassword", 6)
 		});
 
-		expect(() =>
+		await expect(() =>
 			_auth.authenticate({
 				email,
 				password: "wrongpassword"
