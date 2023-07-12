@@ -28,7 +28,7 @@ RBAC (Role-Based Access Control), and many other key concepts.
 - [ ] It should be possible for the user to retrieve their check-in history;
 - [ ] It should be possible for the user to search for nearby gyms;
 - [ ] It should be possible for the user to search for gyms by name;
-- [ ] It should be possible for the user to check-in at a gym;
+- [x] It should be possible for the user to check-in at a gym;
 - [ ] It should be possible to validate a user's check-in;
 - [ ] It should be possible to register a gym.
 <br><br>
@@ -36,8 +36,8 @@ RBAC (Role-Based Access Control), and many other key concepts.
 ### **Business Rules**
 
 - [x] The user should not be able to register with a duplicate email;
-- [ ] The user cannot make 2 check-ins on the same day;
-- [ ] The user cannot check-in if they are not close (100m) to the gym;
+- [x] The user cannot make 2 check-ins on the same day;
+- [x] The user cannot check-in if they are not close (100m) to the gym;
 - [ ] The check-in can only be validated within 20 minutes after it is created;
 - [ ] The check-in can only be validated by administrators;
 - [ ] The gym can only be registered by administrators.
