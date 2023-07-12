@@ -6,6 +6,7 @@ import {
 	ResourceNotFound
 } from "../error/error-service";
 import { User } from "@prisma/client";
+import { UserRepositoryInterface } from "@/repositories/@repositories-interfaces";
 
 export interface CreateUserDTO {
 	name: string;
@@ -18,7 +19,7 @@ interface CreateUserResponse {
 }
 
 export class UserService {
-	constructor(private userRepository: UserRepository) {}
+	constructor(private userRepository: UserRepositoryInterface) {}
 
 	async create({
 		name,

@@ -1,7 +1,9 @@
 import { UserRepository } from "@/repositories/user-repository";
 import {
 	InvalidCredentialsError,
-	ResourceNotFound
+	MaxDistanceError,
+	ResourceNotFound,
+	SameDayCheckInError
 } from "../error/error-service";
 import { compare } from "bcryptjs";
 import { CheckIn } from "@prisma/client";
@@ -49,7 +51,7 @@ export class CheckInService {
 		const MAX_DISTANCE_IN_KILOMETERS = 0.1
 
 		if (distance > MAX_DISTANCE_IN_KILOMETERS) {
-			throw new Error();
+			throw new MaxDistanceError();
 		}
 
 		const checkInOnSameDate = await this.checkInsRepository.findByUserIdOneDate(
@@ -58,7 +60,7 @@ export class CheckInService {
 		);
 
 		if (checkInOnSameDate) {
-			throw new Error();
+			throw new SameDayCheckInError();
 		}
 
 		const checkIn = await this.checkInsRepository.create({

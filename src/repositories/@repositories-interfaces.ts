@@ -12,5 +12,6 @@ export interface CheckInsRepositoryInterface {
 }
 
 export interface GymsRepositoryInterface {
+	create(data: Prisma.GymCreateInput): Promise<Gym>;
 	findById(id: string): Promise<Gym | null>;
 }
