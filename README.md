@@ -25,7 +25,7 @@ RBAC (Role-Based Access Control), and many other key concepts.
 - [x] It should be possible to authenticate;
 - [x] It should be possible to retrieve the profile of a logged-in user;
 - [ ] It should be possible to retrieve the number of check-ins performed by the logged-in user;
-- [ ] It should be possible for the user to retrieve their check-in history;
+- [x] It should be possible for the user to retrieve their check-in history;
 - [ ] It should be possible for the user to search for nearby gyms;
 - [ ] It should be possible for the user to search for gyms by name;
 - [x] It should be possible for the user to check-in at a gym;
@@ -47,5 +47,5 @@ RBAC (Role-Based Access Control), and many other key concepts.
 
 - [x] The user's password needs to be encrypted;
 - [x] The application data needs to be persisted in a PostgreSQL database;
-- [ ] All data lists need to be paginated with 20 items per page;
+- [x] All data lists need to be paginated with 20 items per page;
 - [ ] The user should be identified by a JSON Web Token (JWT).

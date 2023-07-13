@@ -1,29 +1,19 @@
-import { UserRepository } from "@/repositories/user-repository";
 import {
-	InvalidCredentialsError,
 	MaxDistanceError,
 	ResourceNotFound,
 	SameDayCheckInError
 } from "../error/error-service";
-import { compare } from "bcryptjs";
-import { CheckIn } from "@prisma/client";
 import {
 	CheckInsRepositoryInterface,
 	GymsRepositoryInterface
 } from "@/repositories/@repositories-interfaces";
-import { get } from "http";
 import { getDistanceBetweenCoordinates } from "@/utils/get-distance-between-coordinates";
-
-interface CheckInServiceRequest {
-	userId: string;
-	gymId: string;
-	userLatitude: number;
-	userLongitude: number;
-}
-
-interface CheckInServiceResponse {
-	checkIn: CheckIn;
-}
+import {
+	CheckInServiceFindManyByUserIdRequest,
+	CheckInServiceFindManyByUserIdResponse,
+	CreateCheckInServiceRequest,
+	CreateCheckInServiceResponse
+} from "./@check-in-service-interfaces";
 
 export class CheckInService {
 	constructor(
@@ -36,7 +26,7 @@ export class CheckInService {
 		userId,
 		userLatitude,
 		userLongitude
-	}: CheckInServiceRequest): Promise<CheckInServiceResponse> {
+	}: CreateCheckInServiceRequest): Promise<CreateCheckInServiceResponse> {
 		const gym = await this.gymsRepository.findById(gymId);
 
 		if (!gym) {
@@ -48,13 +38,13 @@ export class CheckInService {
 			{ latitude: gym.latitude.toNumber(), longitude: gym.longitude.toNumber() }
 		);
 
-		const MAX_DISTANCE_IN_KILOMETERS = 0.1
+		const MAX_DISTANCE_IN_KILOMETERS = 0.1;
 
 		if (distance > MAX_DISTANCE_IN_KILOMETERS) {
 			throw new MaxDistanceError();
 		}
 
-		const checkInOnSameDate = await this.checkInsRepository.findByUserIdOneDate(
+		const checkInOnSameDate = await this.checkInsRepository.findByUserIdOnDate(
 			userId,
 			new Date()
 		);
@@ -69,5 +59,16 @@ export class CheckInService {
 		});
 
 		return { checkIn };
+	}
+
+	async findManyByUserId({
+		userId,
+		page
+	}: CheckInServiceFindManyByUserIdRequest): Promise<CheckInServiceFindManyByUserIdResponse> {
+		const checkIns = await this.checkInsRepository.findManyByUserId(
+			userId,
+			page
+		);
+		return { checkIns };
 	}
 }

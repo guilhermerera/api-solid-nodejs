@@ -1,3 +1,4 @@
+import { CheckInServiceFindManyByUserIdRequest } from "@/services/check-in/@check-in-service-interfaces";
 import { CheckIn, Gym, Prisma, User } from "@prisma/client";
 
 export interface UserRepositoryInterface {
@@ -5,10 +6,10 @@ export interface UserRepositoryInterface {
 	findByEmail(email: string): Promise<User | null>;
 	findById(id: string): Promise<User | null>;
 }
-
 export interface CheckInsRepositoryInterface {
 	create(data: Prisma.CheckInUncheckedCreateInput): Promise<CheckIn>;
-	findByUserIdOneDate(userId: string, date: Date): Promise<CheckIn | null>;
+	findByUserIdOnDate(userId: string, date: Date): Promise<CheckIn | null>;
+	findManyByUserId(userId: string, page:number): Promise<CheckIn[]>;
 }
 
 export interface GymsRepositoryInterface {
