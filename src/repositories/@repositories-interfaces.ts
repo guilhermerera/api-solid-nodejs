@@ -9,7 +9,8 @@ export interface UserRepositoryInterface {
 export interface CheckInsRepositoryInterface {
 	create(data: Prisma.CheckInUncheckedCreateInput): Promise<CheckIn>;
 	findByUserIdOnDate(userId: string, date: Date): Promise<CheckIn | null>;
-	findManyByUserId(userId: string, page:number): Promise<CheckIn[]>;
+	findManyByUserId(userId: string, page: number): Promise<CheckIn[]>;
+	getCountByUserId(userId: string): Promise<number>;
 }
 
 export interface GymsRepositoryInterface {

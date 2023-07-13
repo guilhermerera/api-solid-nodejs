@@ -9,6 +9,13 @@ import { paginateArrayIn20PerPage } from "@/utils/paginate-items-in-an-array";
 export class InMemoryCheckInsRepository implements CheckInsRepositoryInterface {
 	private checkIns: CheckIn[] = [];
 
+	async getCountByUserId(userId: string) {
+		const checkInCount = this.checkIns.filter(
+			(checkIn) => checkIn.user_id === userId
+		).length;
+		return checkInCount;
+	}
+
 	async findManyByUserId(userId: string, page: number) {
 		const allUserCheckIns = this.checkIns.filter(
 			(checkIn) => checkIn.user_id === userId

@@ -154,4 +154,28 @@ describe("Check-in Service", () => {
 		// And the pagination is 20 per per age (Last updated: 07/12/2023)
 		expect(checkIns).toHaveLength(2);
 	});
+
+	it("should be able to get check-ins count from metrics", async () => {
+		const userId = "user-01";
+
+		// This Loop Creates 22 Check-ins
+		for (let i = 1; i <= 22; i++) {
+			vi.setSystemTime(new Date(2022, 0, i, 12, 0, 0));
+			await checkinService.createCheckIn({
+				gymId: `gym-01`,
+				userId: userId,
+				userLatitude: -23.539352,
+				userLongitude: -46.6902728
+			});
+		}
+
+		// Here we are fetching the second page of check-ins
+		const { checkInCount } = await checkinService.getCountByUserId({
+			userId: userId
+		});
+
+		// We expect to receive 2 check-ins, since we have 22
+		// And the pagination is 20 per per age (Last updated: 07/12/2023)
+		expect(checkInCount).toEqual(22);
+	});
 });

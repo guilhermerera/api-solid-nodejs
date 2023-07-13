@@ -19,3 +19,12 @@ export interface CheckInServiceFindManyByUserIdRequest {
 export interface CheckInServiceFindManyByUserIdResponse {
 	checkIns: CheckIn[];
 }
+
+export interface CheckInServiceGetCountByUserIdRequest {
+	userId: string;
+	
+}
+
+export interface CheckInServiceGetCountByUserIdResponse {
+	checkInCount: number
+}

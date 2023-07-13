@@ -11,6 +11,8 @@ import { getDistanceBetweenCoordinates } from "@/utils/get-distance-between-coor
 import {
 	CheckInServiceFindManyByUserIdRequest,
 	CheckInServiceFindManyByUserIdResponse,
+	CheckInServiceGetCountByUserIdRequest,
+	CheckInServiceGetCountByUserIdResponse,
 	CreateCheckInServiceRequest,
 	CreateCheckInServiceResponse
 } from "./@check-in-service-interfaces";
@@ -70,5 +72,12 @@ export class CheckInService {
 			page
 		);
 		return { checkIns };
+	}
+
+	async getCountByUserId({
+		userId
+	}: CheckInServiceGetCountByUserIdRequest): Promise<CheckInServiceGetCountByUserIdResponse> {
+		const checkInCount = await this.checkInsRepository.getCountByUserId(userId);
+		return { checkInCount };
 	}
 }
